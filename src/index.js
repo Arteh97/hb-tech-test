@@ -13,3 +13,14 @@ fs.createReadStream(inputFilePath)
         products.push(row);
         console.log(products);
     })
+    .on('end', () => {
+        products.sort((a, b) => a.product_code - b.product_code);
+        const csvWriter = createCsvWriter({
+            path: outputFilePath,
+            header: [
+                {id: 'product_code', title: 'product_code'},
+                {id: 'quantity', title: 'quantity'},
+                {id: 'pick_location', title: 'pick_location'}
+            ]
+        });
+    })
