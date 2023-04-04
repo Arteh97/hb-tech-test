@@ -1,0 +1,19 @@
+{
+  "name": "hb-tech-test",
+  "version": "1.0.0",
+  "description": "tech-test",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm t"
+  },
+  "repository": {
+    "type": "git",
+    "url": "hb-tech-test"
+  },
+  "author": "arteh97",
+  "license": "ISC",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "csv-writer": "^1.6.0"
+  }
+}
