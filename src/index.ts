@@ -1,27 +1,32 @@
 const fs = require('fs');
 const csv = require('csv-parser');
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const { createObjectCsvWriter } = require('csv-writer');
+
+interface Product {
+  product_code: string;
+  quantity: string;
+}
 
 const inputFilePath = './src/data/hb_test.csv';
 const outputFilePath = './src/data/output.csv';
 
-let products = [];
+const products: Product[] = [];
 
 fs.createReadStream(inputFilePath)
   .pipe(csv())
-  .on('data', (row) => {
+  .on('data', (row: Product) => {
     products.push(row);
   })
   .on('end', () => {
-    products.sort((a, b) => a.product_code - b.product_code);
-    const csvWriter = createCsvWriter({
+    products.sort((a: Product, b: Product) => parseInt(a.product_code) - parseInt(b.product_code));
+    const csvWriter = createObjectCsvWriter({
       path: outputFilePath,
       header: [
         {id: 'product_code', title: 'product_code'},
         {id: 'quantity', title: 'quantity'},
         {id: 'pick_location', title: 'pick_location'}
       ]
-    });
+    });    
     const rows = [];
     let currentBay = 'A';
     let currentShelf = 1;
